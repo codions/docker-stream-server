@@ -3,7 +3,6 @@ ARG NGINX_RTMP_VERSION=1.2.2
 ARG FFMPEG_VERSION=4.2.1
 ARG S3FS_VERSION=v1.85
 
-##############################
 # Build the NGINX-build image.
 FROM alpine:3.14 as build-nginx
 ARG NGINX_VERSION
@@ -51,7 +50,6 @@ RUN cd /tmp/nginx-${NGINX_VERSION} && \
   --with-debug && \
   cd /tmp/nginx-${NGINX_VERSION} && make && make install
 
-###############################
 # Build the FFmpeg-build image.
 FROM alpine:3.14 as build-ffmpeg
 ARG FFMPEG_VERSION
@@ -121,7 +119,6 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 # Cleanup.
 RUN rm -rf /var/cache/* /tmp/*
 
-##########################
 # Build the release image.
 FROM alpine:3.14
 LABEL MAINTAINER Efriandika Pratama <efriandika@gmail.com>
@@ -146,7 +143,6 @@ COPY --from=build-nginx /usr/local/nginx /usr/local/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
-# Add NGINX path, config and static files.
 ENV PATH "${PATH}:/usr/local/nginx/sbin"
 ADD nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /opt/data && mkdir /www
