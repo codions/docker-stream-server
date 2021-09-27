@@ -1,10 +1,11 @@
-ARG NGINX_VERSION=1.16.1
+ARG ALPINE_VERSION=3.14
+ARG NGINX_VERSION=1.21.0
 ARG NGINX_RTMP_VERSION=1.2.2
-ARG FFMPEG_VERSION=4.2.1
+ARG FFMPEG_VERSION=4.4
 ARG S3FS_VERSION=v1.85
 
 # Build the NGINX-build image.
-FROM alpine:3.14 as build-nginx
+FROM alpine:${ALPINE_VERSION} as build-nginx
 ARG NGINX_VERSION
 ARG NGINX_RTMP_VERSION
 
@@ -51,7 +52,7 @@ RUN cd /tmp/nginx-${NGINX_VERSION} && \
   cd /tmp/nginx-${NGINX_VERSION} && make && make install
 
 # Build the FFmpeg-build image.
-FROM alpine:3.14 as build-ffmpeg
+FROM alpine:${ALPINE_VERSION} as build-ffmpeg
 ARG FFMPEG_VERSION
 ARG PREFIX=/usr/local
 ARG MAKEFLAGS="-j4"
@@ -120,8 +121,13 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 RUN rm -rf /var/cache/* /tmp/*
 
 # Build the release image.
-FROM alpine:3.14
-LABEL MAINTAINER Efriandika Pratama <efriandika@gmail.com>
+FROM alpine:${ALPINE_VERSION}
+LABEL MAINTAINER Fábio Assunção <fabio@codions.com>
+
+# Set default ports.
+ENV HTTP_PORT 80
+ENV HTTPS_PORT 443
+ENV RTMP_PORT 1935
 
 RUN apk add --update \
   ca-certificates \
