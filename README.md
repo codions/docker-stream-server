@@ -1,6 +1,5 @@
-# Docker + Nginx + RTMP + S3FS (AWS S3 Integration)
-A Dockerfile installing NGINX, nginx-rtmp-module and FFmpeg from source with
-default settings for HLS live streaming. Built on Alpine Linux.
+# Docker + Nginx + RTMP + S3FS (S3-Compatible Object Storage)
+A Dockerfile installing NGINX, nginx-rtmp-module and FFmpeg from source with default settings for HLS live streaming. Built on Alpine Linux.
 
 * Nginx 1.16.1 (Stable version compiled from source)
 * nginx-rtmp-module 1.2.1 (compiled from source)
