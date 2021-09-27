@@ -15,4 +15,4 @@ docker run --rm --privileged -it \
 -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
 -p 1935:1935 \
 -p 8080:80 \
-ghcr.io/codions/stream-server/stream-server:latest
+ghcr.io/codions/docker-stream-server/docker-stream-server:latest
