@@ -3,9 +3,17 @@ version: '3'
 services:
   nginx-rtmp:
     build: .
+    container_name: stream-server
+    restart: unless-stopped
     ports:
       - 1935:1935
       - 8080:80
       - 8443:443
     volumes:
       - ./certs:/opt/certs
+    environment:
+      - AWS_S3_URL=https://s3.amazonaws.com
+      - AWS_S3_REGION=us-east-1
+      - AWS_S3_BUCKET_NAME=
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
