@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # if there is a env file, source it
 if [ -f "./.env" ]; then
