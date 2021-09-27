@@ -78,6 +78,11 @@ http://<server ip>:8080/live/$STREAM_NAME.m3u8
 * [VideoJS Player](https://video-dev.github.io/hls.js/stable/demo/?src=http%3A%2F%2Flocalhost%3A8080%2Flive%2Fhello.m3u8)
 * FFplay: `ffplay -fflags nobuffer rtmp://localhost:1935/stream/hello`
 
+## Credits
+* https://github.com/alfg/docker-nginx-rtmp
+* https://github.com/TareqAlqutami/rtmp-hls-server
+* https://github.com/efriandika/streaming-server
+
 ## Resources
 * https://alpinelinux.org/
 * http://nginx.org
