@@ -127,6 +127,9 @@ LABEL MAINTAINER Fábio Assunção <fabio@codions.com>
 
 ENV FILESYSTEM 'local'
 ENV STORAGE_PATH '/opt/data'
+ENV HTTP_PORT 80
+ENV HTTPS_PORT 443
+ENV RTMP_PORT 1935
 
 RUN apk add --update \
   bash \
@@ -153,7 +156,7 @@ COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
 ENV PATH "${PATH}:/usr/local/nginx/sbin"
-ADD nginx.conf /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf.template
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 

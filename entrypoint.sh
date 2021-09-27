@@ -47,4 +47,6 @@ if [ "$FILESYSTEM" = "s3" ] ; then
 fi
 
 # Run NGINX
-nginx
+envsubst "$(env | sed -e 's/=.*//' -e 's/^/\$/g')" < \
+  /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
+  nginx

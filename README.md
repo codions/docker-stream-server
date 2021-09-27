@@ -41,9 +41,7 @@ rtmp://<server ip>:1935/stream/$STREAM_NAME
 * URL: `rtmp://localhost:1935/stream`
 * Example Stream Key: `hello`
 
-## Using AWS and CloudFront
-
-### Watch Stream
+### Watch Stream using AWS and CloudFront
 
 Access by using your S3 public URL.
 
@@ -53,10 +51,22 @@ or you can set your cloudfront (cache disabled) distribution then based on your 
 
 >  Don't forget to set public access and enable CORS in your s3 bucket
 
+### Watch Stream using Local Storage
+* Load up the example hls.js player in your browser:
+```
+http://localhost:8080/player.html?url=http://localhost:8080/live/hello.m3u8
+```
 
-## Using your Own Server
+* Or in Safari, VLC or any HLS player, open:
+```
+http://localhost:8080/live/$STREAM_NAME.m3u8
+```
+* Example Playlist: `http://localhost:8080/live/hello.m3u8`
+* [HLS.js Player](https://hls-js.netlify.app/demo/?src=http%3A%2F%2Flocalhost%3A8080%2Flive%2Fhello.m3u8)
+* FFplay: `ffplay -fflags nobuffer rtmp://localhost:1935/stream/hello`
 
-### SSL (optional)
+
+### SSL 
 To enable SSL, see [nginx.conf](nginx.conf) and uncomment the lines:
 ```
 listen 443 ssl;
@@ -64,19 +74,7 @@ ssl_certificate     /opt/certs/example.com.crt;
 ssl_certificate_key /opt/certs/example.com.key;
 ```
 
-This will enable HTTPS using a self-signed certificate supplied in [/certs](/certs). If you wish to use HTTPS, it is **highly recommended** to obtain your own certificates and update the `ssl_certificate` and `ssl_certificate_key` paths.
-
-I recommend using [Certbot](https://certbot.eff.org/docs/install.html) from [Let's Encrypt](https://letsencrypt.org).
-
-
-### Watch Stream
-* In Safari, VLC or any HLS player, open:
-```
-http://<server ip>:8080/live/$STREAM_NAME.m3u8
-```
-* Example Playlist: `http://localhost:8080/live/hello.m3u8`
-* [VideoJS Player](https://video-dev.github.io/hls.js/stable/demo/?src=http%3A%2F%2Flocalhost%3A8080%2Flive%2Fhello.m3u8)
-* FFplay: `ffplay -fflags nobuffer rtmp://localhost:1935/stream/hello`
+> This will enable HTTPS using a self-signed certificate supplied in [/certs](/certs). If you wish to use HTTPS, it is highly recommended to obtain your own certificates and update the `ssl_certificate` and `ssl_certificate_key` paths.
 
 ## Credits
 * https://github.com/alfg/docker-nginx-rtmp
