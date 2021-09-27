@@ -125,10 +125,8 @@ RUN rm -rf /var/cache/* /tmp/*
 FROM alpine:${ALPINE_VERSION}
 LABEL MAINTAINER Fábio Assunção <fabio@codions.com>
 
-# Set default ports.
-ENV HTTP_PORT 80
-ENV HTTPS_PORT 443
-ENV RTMP_PORT 1935
+ENV FILESYSTEM 'local'
+ENV STORAGE_PATH '/opt/data'
 
 RUN apk add --update \
   bash \
@@ -166,8 +164,8 @@ RUN apk --update add s3fs-fuse
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-EXPOSE ${RTMP_PORT}
-EXPOSE ${HTTP_PORT}
-EXPOSE ${HTTPS_PORT}
+EXPOSE 80
+EXPOSE 443
+EXPOSE 1935
 
 CMD ["/entrypoint.sh"]

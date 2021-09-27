@@ -12,6 +12,7 @@ services:
     volumes:
       - ./certs:/opt/certs
     environment:
+      - FILESYSTEM=${FILESYSTEM}
       - AWS_S3_URL=${AWS_S3_URL}
       - AWS_S3_REGION=${AWS_S3_REGION}
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
