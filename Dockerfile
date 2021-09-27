@@ -48,7 +48,8 @@ RUN cd /tmp/nginx-${NGINX_VERSION} && \
   --with-threads \
   --with-file-aio \
   --with-http_ssl_module \
-  --with-debug && \
+  --with-debug \
+  --with-cc-opt="-Wimplicit-fallthrough=0" && \
   cd /tmp/nginx-${NGINX_VERSION} && make && make install
 
 # Build the FFmpeg-build image.
@@ -130,11 +131,14 @@ ENV HTTPS_PORT 443
 ENV RTMP_PORT 1935
 
 RUN apk add --update \
+  bash \
   ca-certificates \
+  gettext \
   openssl \
   pcre \
   lame \
   libogg \
+  curl \
   libass \
   libvpx \
   libvorbis \
@@ -146,6 +150,7 @@ RUN apk add --update \
   x265-dev
 
 COPY --from=build-nginx /usr/local/nginx /usr/local/nginx
+COPY --from=build-nginx /etc/nginx /etc/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
@@ -161,7 +166,8 @@ RUN apk --update add s3fs-fuse
 ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 1935
-EXPOSE 80
+EXPOSE ${RTMP_PORT}
+EXPOSE ${HTTP_PORT}
+EXPOSE ${HTTPS_PORT}
 
 CMD ["/entrypoint.sh"]

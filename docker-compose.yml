@@ -12,8 +12,8 @@ services:
     volumes:
       - ./certs:/opt/certs
     environment:
-      - AWS_S3_URL=https://s3.amazonaws.com
-      - AWS_S3_REGION=us-east-1
-      - AWS_S3_BUCKET_NAME=
-      - AWS_ACCESS_KEY_ID=
-      - AWS_SECRET_ACCESS_KEY=
+      - AWS_S3_URL=${AWS_S3_URL}
+      - AWS_S3_REGION=${AWS_S3_REGION}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
