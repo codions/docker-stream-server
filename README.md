@@ -45,7 +45,7 @@ rtmp://<server ip>:1935/stream/$STREAM_NAME
 
 Access by using your S3 public URL.
 
-For example => `https://your-s3-bucket.s3.us-east-2.amazonaws.com/hls/hello.m3u8`
+For example `https://your-s3-bucket.s3.us-east-2.amazonaws.com/hls/hello.m3u8`
 
 or you can set your cloudfront (cache disabled) distribution then based on your S3
 
